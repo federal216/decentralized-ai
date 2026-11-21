@@ -33,39 +33,63 @@ A single NVIDIA GeForce RTX 3060 (12GB) or RTX 4090 (24GB) is capable of serving
 
 ---
 
-## 2. Protocol Architecture & Proof-of-Inference (PoI)
+## 2. Protocol Architecture, Dual-Metric PoI & The Self-Evolving Swarm AI
 
 ```
-                       [ Client API Request ]
-                                 │
-                                 ▼
-                     [ Shard Routing Gateway ]
-                                 │
-                 ┌───────────────┴───────────────┐
-                 ▼                               ▼
-       [ Worker Node #1 ]              [ Worker Node #2 ]
-     (NVIDIA RTX 3060 12GB)          (NVIDIA RTX 4090 24GB)
-                 │                               │
-                 ▼                               ▼
-      [ Activation Tensor A ]         [ Activation Tensor B ]
-                 │                               │
-                 └───────────────┬───────────────┘
-                                 ▼
-                    [ Consensus Validator Mesh ]
-                  (Deterministic Sampling & PoI)
-                                 │
-                 ┌───────────────┴───────────────┐
-                 ▼                               ▼
-      [ Verified Output to User ]     [ Block Emission in $DEAI ]
+                       [ Client API Request / Query ]
+                                     │
+                                     ▼
+                    [ DEAI Dynamic Shard Orchestrator ]
+                                     │
+         ┌───────────────────────────┼───────────────────────────┐
+         ▼                           ▼                           ▼
+[ Worker Node #1 ]          [ Worker Node #2 ]          [ Worker Node #n ]
+(RTX 3060 - 6GB VRAM)       (RTX 4070 - 12GB VRAM)      (RTX 4090 - 24GB VRAM)
+Layers 1–16 Attention       Layers 17–36 Feedforward     Layers 37–64 Output Head
+         │                           │                           │
+         └───────────────────────────┼───────────────────────────┘
+                                     ▼
+                     [ Consensus Validator Matrix ]
+           (Proof-of-Uptime + Proof-of-Compute Workload Verification)
+                                     │
+         ┌───────────────────────────┴───────────────────────────┐
+         ▼                                                       ▼
+ [ Censorship-Free Response ]                             [ Dual-Metric Reward ]
+   Returned to Client API                                (Uptime + Compute Volume)
+                                                                 │
+                                                                 ▼
+                                                  [ Continuous Model Evolution ]
+                                                  (Synthetic RL & Nightly Weight Updates)
 ```
 
-### 2.1 The Proof-of-Inference (PoI) Engine
-Unlike Proof-of-Work (PoW) which incinerates terawatt-hours on non-functional hash collisions, Proof-of-Inference transforms mathematical verification into real-world AI utility:
+### 2.1 The Dual-Metric Reward Engine: Time (Süre) + Workload (İş Hacmi)
+Network contributors are rewarded through a dual-variable emission function designed to balance constant network availability with raw compute throughput:
 
-1. **Deterministic Challenge Injection:** During each inference epoch, the validator mesh injects a cryptographic watermark challenge matrix into the attention heads.
-2. **Deterministic Sampling:** Intermediate activations are cross-evaluated against randomized peer nodes.
-3. **Slashing & Quarantine:** A worker node that returns spoofed, corrupted, or synthetic hallucinated tensors has its node stake slashed and is immediately isolated from the peer routing table.
-4. **Reward Emission:** Confirmed inference batches release fractional block rewards in $DEAI according to compute complexity (TFLOPS) and latency.
+$$\mathcal{R}_{\text{epoch}} = \underbrace{(T_{\text{online}} \times \alpha)}_{\text{Uptime Availability Proof}} + \underbrace{\left(\sum_{i=1}^{k} \text{TFLOPS}_i \times \beta \times \mathcal{M}_{\text{model}}\right)}_{\text{Compute Workload Proof}}$$
+
+Where:
+* **$T_{\text{online}}$ (Süre / Uptime):** Rewards nodes simply for staying online, maintaining low ping (<50ms), and keeping model shards warm in VRAM. This ensures 24/7 instant response times.
+* **$\text{TFLOPS}_i$ (İş Hacmi / Workload):** Rewards nodes for every matrix multiplication, inference query, and prompt token processed. Heavy compute jobs (e.g. 70B reasoning steps) receive a multiplier $\mathcal{M}_{\text{model}}$.
+* **$R_{\text{epoch}}$:** Distributed directly to the node operator's Solana wallet in $DEAI tokens on each 10-minute block epoch.
+
+---
+
+### 2.2 The Self-Evolving Swarm: How $DEAI Grows Exponentially Stronger
+A single consumer graphics card cannot run a 671-billion parameter frontier AI model alone. But when thousands of consumer GPUs connect via DecentralizedAI's peer-to-peer mesh, an extraordinary emergent intelligence is born:
+
+1. **Dynamic Tensor Sharding (Pipeline Parallelism):**
+   The neural network's layers are automatically partitioned across the network. If Node A runs Layers 1–12, Node B runs 13–28, and Node C runs 29–48, consumer RTX cards collectively form a supercomputer capable of running models larger than GPT-4.
+2. **Nightly Autonomous Fine-Tuning (Federated Learning):**
+   When client query volume is low (e.g. late night hours), the mesh shifts spare compute power into **Continuous Model Training**. Worker nodes execute reinforcement learning steps (RLHF / GRPO) on curated open synthetic datasets.
+3. **Compound Intelligence Flywheel:**
+   * **More Connected GPUs** $\longrightarrow$ **Higher Collective TFLOPS**.
+   * **Higher TFLOPS** $\longrightarrow$ **Larger Model Architectures (8B $\to$ 70B $\to$ 671B MoE)**.
+   * **Smarter Model** $\longrightarrow$ **Higher API Demand from Global Developers**.
+   * **Higher API Volume** $\longrightarrow$ **More Fees & Accelerated 20% Token Burn**.
+   * **Accelerated Burn** $\longrightarrow$ **Deflationary Price Surge $\longrightarrow$ More Miners Join**.
+   The AI does not remain static; with every hour of compute provided, **$DEAI becomes mathematically smarter, faster, and more sovereign**.
+
+---
 
 ---
 
@@ -94,27 +118,34 @@ Unlike inflationary shitcoins that flood the market with billions of worthless t
 ---
 
 ### 3.2 Founder Reserve Timelock (500,000 $DEAI / 50%)
-To maintain absolute market trust, prevent developer dumping, and incentivize long-term protocol valuation:
+To establish an unassailable institutional standard of trust, eliminate any possibility of developer dumping, and demonstrate absolute long-term alignment with protocol expansion:
 
-* **Locked Vault Amount:** **500,000 $DEAI (50% of the entire supply)**.
-* **Lock Mechanism:** On-chain multi-sig timelock contract (Streamflow / Uncx / Squads Solana Multi-Sig).
-* **Vesting Schedule:**
-  - **TGE Initial Working Capital (10% of Reserve):** 50,000 $DEAI released at launch for initial market making, server infrastructure, and exchange security.
-  - **Cliff Period:** 6-Month Hard Cliff (Zero tokens released during first 180 days).
-  - **Linear Quarterly Vesting:** 5.625% (28,125 $DEAI) released quarterly over 48 months.
+* **Locked Vault Amount:** **500,000 $DEAI (Exactly 50% of Total Max Supply)**.
+* **On-Chain Custody:** Enforced by an immutable on-chain timelock contract (Solana Anchor Multi-Sig Vault / Streamflow Protocol).
+* **The 1-Year Cliff & 10-Year Vesting Schedule:**
+  - **1-Year Absolute Hard Cliff (Month 0 to 12):** ZERO (0) tokens can be unlocked or withdrawn under any condition during the first 365 days. The entire 500,000 reserve remains 100% frozen on-chain.
+  - **Post-Cliff Annual 10% Tranches (Year 2 to 11):** Beginning on Month 12, exactly **10% of the reserve (50,000 $DEAI)** unlocks annually over a 10-year span:
+    * **End of Year 1 (Month 12):** 1st Tranche Unlocks → 50,000 $DEAI (10%)
+    * **End of Year 2 (Month 24):** 2nd Tranche Unlocks → 50,000 $DEAI (10%)
+    * **End of Year 3 (Month 36):** 3rd Tranche Unlocks → 50,000 $DEAI (10%)
+    * **Years 4 through 10:** 50,000 $DEAI unlocked per year until all 500,000 tokens are vested.
+* **Economic Signaling:** In an industry plagued by short-term pump-and-dump schemes, an 11-year protocol commitment establishes $DEAI alongside Bitcoin and Ethereum as a generational, non-extractive compute standard.
 
 ---
 
 ### 3.3 The Controlled Emission Schedule (Peyderpey Salım)
-The remaining 500,000 $DEAI tokens enter circulation through strict programmatic phases:
+The remaining 500,000 $DEAI tokens enter circulation through strictly audited mathematical constraints:
 
 #### 1. Initial Liquidity Pool (150,000 $DEAI / 15%)
 * Deposited directly into the Raydium / Pump.fun / Uniswap liquidity pool alongside SOL/ETH.
 * **100% of initial LP tokens are burned/locked** to guarantee permanent, un-ruggable trading depth.
+* **Zero Founder Pre-Sale:** The founder receives 0 liquid tokens at launch. 100% of day-one tradeable float is strictly community and LP owned.
 
-#### 2. Proof-of-Inference Mining Rewards (250,000 $DEAI / 25%)
-* Released strictly to GPU worker nodes based on verified inference uptime and token throughput.
-* **Epoch Halving Schedule:**
+#### 2. GPU Mining & Swarm Intelligence Rewards (250,000 $DEAI / 25%)
+* Released strictly to GPU worker nodes based on a dual-metric Proof-of-Inference algorithm:
+  - **Uptime Duration (Zaman Kanıtı):** Baseline rewards for maintaining network availability, low latency, and warm model tensor residency.
+  - **Compute Workload (İş Hacmi Kanıtı):** Dynamic multiplier rewards proportional to executed inference tokens, evaluated TFLOPS, and validated mathematical activations.
+* **Epoch Halving Schedule (36 Months):**
   - **Year 1:** 125,000 $DEAI emitted (~342.4 $DEAI / day distributed across all active nodes).
   - **Year 2:** 62,500 $DEAI emitted (~171.2 $DEAI / day).
   - **Year 3:** 31,250 $DEAI emitted (~85.6 $DEAI / day).
