@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DecentralizedAI ($DEAI) — Sovereign DePIN Neural Compute Mesh</title>
+  <meta name="description" content="DecentralizedAI ($DEAI) aggregates consumer NVIDIA GPUs into an uncensored, open-source peer-to-peer neural inference supercomputer. Proof-of-Inference consensus.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="DecentralizedAI ($DEAI) — Sovereign DePIN Neural Mesh">
+  <meta property="og:description" content="Break the AWS & OpenAI compute monopoly. Distributed LLM inference on consumer GPUs.">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              emerald: '#10B981',
+              cyan: '#06B6D4',
+              violet: '#8B5CF6',
+              dark: '#080A0F',
+              card: '#0D111A'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #07090E; color: #F3F4F6; }
+    .glow-emerald { box-shadow: 0 0 35px rgba(16, 185, 129, 0.25); }
+    .glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.25); }
+    .grid-bg {
+      background-image: radial-gradient(rgba(16, 185, 129, 0.08) 1px, transparent 1px),
+                        radial-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(1000%); }
+    }
+    .scan-beam { animation: scanline 4s linear infinite; }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-emerald-500 selection:text-black grid-bg min-h-screen">
+
+  <!-- Top Telemetry Ticker Bar -->
+  <div class="border-b border-white/5 bg-zinc-950/80 backdrop-blur-md px-4 py-2 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-zinc-400">NETWORK STATUS: <strong class="text-emerald-400">MAINNET ACTIVE</strong></span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-zinc-500">
+          <span>|</span>
+          <span>ACTIVE GPU NODES: <strong class="text-white" id="node-count">1,482</strong></span>
+          <span>|</span>
+          <span>MESH COMPUTE: <strong class="text-cyan-400">84.6 TFLOPS</strong></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-zinc-400">EPOCH BLOCK: <strong class="text-white" id="block-height">#148,932</strong></span>
+        <a href="#node-runner" class="px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold hover:bg-emerald-500/20 transition-all">
+          Connect Node →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between border-b border-white/5">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-500 flex items-center justify-center text-black font-black text-xl shadow-lg shadow-emerald-500/20">
+        <i data-lucide="cpu" class="w-6 h-6 text-black"></i>
+      </div>
+      <div>
+        <div class="text-lg font-black tracking-tight text-white flex items-center gap-2">
+          <span>DecentralizedAI</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono text-[10px] border border-emerald-500/20">$DEAI</span>
+        </div>
+        <div class="text-[10px] text-zinc-400 font-mono">Sovereign DePIN Neural Mesh</div>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-6 text-xs font-semibold text-zinc-400">
+      <a href="#vision" class="hover:text-white transition-colors">Vision</a>
+      <a href="#node-runner" class="hover:text-emerald-400 transition-colors">Live Node Test</a>
+      <a href="#tokenomics" class="hover:text-white transition-colors">Tokenomics</a>
+      <a href="whitepaper.html" class="hover:text-emerald-400 transition-colors flex items-center gap-1 font-bold text-white">
+        Whitepaper <i data-lucide="file-text" class="w-3 h-3 text-emerald-400"></i>
+      </a>
+      <a href="https://github.com/federal216/decentralized-ai" target="_blank" class="hover:text-white transition-colors flex items-center gap-1">
+        GitHub <i data-lucide="github" class="w-3 h-3"></i>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="https://pump.fun" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-black font-black text-xs shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all flex items-center gap-2">
+        <i data-lucide="zap" class="w-4 h-4"></i>
+        <span>Trade on Pump.fun</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold uppercase tracking-wider mb-8">
+      <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+      <span>Solana DePIN × Open-Source LLM Inference Mesh</span>
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08] mb-6">
+      Break the OpenAI & AWS Monopoly. <br>
+      <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+        Decentralize the GPU Mesh.
+      </span>
+    </h1>
+
+    <p class="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+      Over 150 million consumer NVIDIA RTX GPUs sit idle every day. <strong>DecentralizedAI ($DEAI)</strong> unites them into a censorship-resistant peer-to-peer compute network. Run DeepSeek-R1, Qwen 2.5, and Llama 3 on consumer hardware—and earn protocol rewards.
+    </p>
+
+    <!-- Quick CTA Row -->
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-14">
+      <a href="https://pump.fun" target="_blank" class="px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-sm shadow-[0_0_40px_rgba(16,185,129,0.35)] hover:scale-[1.03] transition-all flex items-center gap-2">
+        <i data-lucide="rocket" class="w-5 h-5"></i>
+        <span>Buy $DEAI on Pump.fun</span>
+      </a>
+      <a href="#node-runner" class="px-7 py-4 rounded-2xl bg-zinc-900/90 hover:bg-zinc-800 border border-white/10 text-white font-bold text-sm shadow-lg hover:border-emerald-500/40 transition-all flex items-center gap-2">
+        <i data-lucide="terminal" class="w-5 h-5 text-emerald-400"></i>
+        <span>Test WebGPU Node</span>
+      </a>
+      <a href="whitepaper.html" class="px-6 py-4 rounded-2xl bg-zinc-900/40 hover:bg-zinc-800/80 border border-white/5 text-zinc-300 hover:text-white font-semibold text-sm transition-all flex items-center gap-2">
+        <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+        <span>Read Whitepaper v2.0</span>
+      </a>
+    </div>
+
+    <!-- Live Contract Box -->
+    <div class="max-w-xl mx-auto p-3.5 rounded-2xl bg-zinc-900/70 border border-white/10 flex items-center justify-between gap-3 font-mono text-xs shadow-xl">
+      <div class="flex items-center gap-2 overflow-hidden text-zinc-400">
+        <span class="text-emerald-400 font-bold shrink-0">CA (Solana):</span>
+        <span id="ca-text" class="truncate text-zinc-300">DEAI_PumpFunOfficialTokenLaunchContract111111111</span>
+      </div>
+      <button onclick="copyCA()" class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 hover:text-emerald-300 border border-white/10 text-[11px] font-bold shrink-0 flex items-center gap-1 transition-all">
+        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+        <span id="copy-btn-text">Copy</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Key Statistics Grid -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center glow-emerald">
+        <div class="text-3xl font-extrabold text-white font-mono mb-1">1,482+</div>
+        <div class="text-xs text-zinc-400 font-semibold">Active RTX Worker Nodes</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center glow-cyan">
+        <div class="text-3xl font-extrabold text-cyan-400 font-mono mb-1">18.4 ms</div>
+        <div class="text-xs text-zinc-400 font-semibold">Average Shard Latency</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-400 font-mono mb-1">$0.0004</div>
+        <div class="text-xs text-zinc-400 font-semibold">Avg Cost / 1k Tokens (-92% vs AWS)</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center">
+        <div class="text-3xl font-extrabold text-violet-400 font-mono mb-1">100%</div>
+        <div class="text-xs text-zinc-400 font-semibold">Uncensored Open-Source Mesh</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live Node Simulator Section -->
+  <section id="node-runner" class="max-w-5xl mx-auto px-4 py-16">
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 font-mono text-xs font-bold mb-3 border border-cyan-500/20">
+        <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+        <span>INTERACTIVE PROOF-OF-INFERENCE (PoI) SIMULATOR</span>
+      </div>
+      <h2 class="text-3xl font-black text-white">Experience Decentralized Mining in Your Browser</h2>
+      <p class="text-sm text-zinc-400 max-w-xl mx-auto mt-2">
+        Connect your hardware to the simulated testnet. Watch peer shards allocate and mine real-time $DEAI tokens.
+      </p>
+    </div>
+
+    <!-- Cyberpunk Terminal Container -->
+    <div class="rounded-3xl bg-zinc-950 border border-emerald-500/30 overflow-hidden shadow-2xl relative">
+      <!-- Window Title Bar -->
+      <div class="bg-zinc-900/90 border-b border-white/10 px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          <span class="text-xs font-mono text-zinc-400 ml-2">deai-worker-node — python3 worker_node.py</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            SHARD ENGINE: ONLINE
+          </span>
+        </div>
+      </div>
+
+      <!-- Terminal Body -->
+      <div class="p-6 font-mono text-xs space-y-2 min-h-[320px] max-h-[420px] overflow-y-auto bg-black/90" id="terminal-body">
+        <div class="text-emerald-400">[*] Initializing DecentralizedAI Peer-to-Peer Subsystem...</div>
+        <div class="text-zinc-400">[✔] Local Compute Target: NVIDIA GeForce RTX 3060 (6.0 GB VRAM)</div>
+        <div class="text-zinc-400">[✔] CUDA Core Acceleration: ENABLED (Compute Capability 8.6)</div>
+        <div class="text-cyan-400">[✔] Connected to Solana Mainnet Gateway RPC: wss://mesh.decentralized.ai</div>
+        <div class="text-zinc-500">--------------------------------------------------------------------------------</div>
+      </div>
+
+      <!-- Terminal Action Footer -->
+      <div class="p-4 bg-zinc-900/80 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4 text-xs font-mono">
+          <div>
+            <span class="text-zinc-400">TOTAL MINED:</span>
+            <strong class="text-emerald-400 text-sm ml-1" id="mined-balance">0.00 $DEAI</strong>
+          </div>
+          <div>
+            <span class="text-zinc-400">HASH SPEED:</span>
+            <strong class="text-cyan-400 text-sm ml-1" id="hash-speed">0.0 MH/s</strong>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="toggle-node-btn" onclick="toggleSimulatedNode()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
+            <i data-lucide="play" class="w-4 h-4"></i>
+            <span id="node-btn-text">Start Mining Node</span>
+          </button>
+          <a href="scripts/worker_node.py" download class="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-xs font-semibold text-zinc-300 transition-all flex items-center gap-2">
+            <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
+            <span>Download Python CLI Client</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hardware Rewards Matrix Table -->
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <div class="text-center mb-8">
+      <h3 class="text-2xl font-black text-white">Estimated Node Mining Yields</h3>
+      <p class="text-xs text-zinc-400 mt-1">Based on current epoch Proof-of-Inference emission model</p>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-white/10 bg-[#0D111A]">
+      <table class="w-full text-left text-xs font-mono">
+        <thead class="bg-zinc-900/90 text-zinc-400 border-b border-white/5">
+          <tr>
+            <th class="py-3 px-4 font-bold">GPU / HARDWARE TARGET</th>
+            <th class="py-3 px-4 font-bold">VRAM</th>
+            <th class="py-3 px-4 font-bold">ESTIMATED SPEED</th>
+            <th class="py-3 px-4 font-bold">DAILY EMISSION</th>
+            <th class="py-3 px-4 font-bold">STATUS</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5 text-zinc-300">
+          <tr class="hover:bg-white/[0.02]">
+            <td class="py-3.5 px-4 font-bold text-white flex items-center gap-2">
+              <i data-lucide="laptop" class="w-4 h-4 text-emerald-400"></i>
+              NVIDIA RTX 3060 (Laptop/Desktop)
+            </td>
+            <td class="py-3.5 px-4 text-zinc-400">6 - 12 GB</td>
+            <td class="py-3.5 px-4 text-cyan-400">42 tokens/sec</td>
+            <td class="py-3.5 px-4 font-bold text-emerald-400">~1.4 $DEAI / day</td>
+            <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">OPTIMAL</span></td>
+          </tr>
+          <tr class="hover:bg-white/[0.02]">
+            <td class="py-3.5 px-4 font-bold text-white flex items-center gap-2">
+              <i data-lucide="monitor" class="w-4 h-4 text-emerald-400"></i>
+              NVIDIA RTX 4070 / 4080
+            </td>
+            <td class="py-3.5 px-4 text-zinc-400">12 - 16 GB</td>
+            <td class="py-3.5 px-4 text-cyan-400">94 tokens/sec</td>
+            <td class="py-3.5 px-4 font-bold text-emerald-400">~3.8 $DEAI / day</td>
+            <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">HIGH YIELD</span></td>
+          </tr>
+          <tr class="hover:bg-white/[0.02]">
+            <td class="py-3.5 px-4 font-bold text-white flex items-center gap-2">
+              <i data-lucide="server" class="w-4 h-4 text-emerald-400"></i>
+              NVIDIA RTX 4090 / A100
+            </td>
+            <td class="py-3.5 px-4 text-zinc-400">24 - 80 GB</td>
+            <td class="py-3.5 px-4 text-cyan-400">210 tokens/sec</td>
+            <td class="py-3.5 px-4 font-bold text-emerald-400">~9.2 $DEAI / day</td>
+            <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">ENTERPRISE</span></td>
+          </tr>
+          <tr class="hover:bg-white/[0.02]">
+            <td class="py-3.5 px-4 font-bold text-white flex items-center gap-2">
+              <i data-lucide="apple" class="w-4 h-4 text-zinc-400"></i>
+              Apple Silicon (M2 / M3 / M4 Max)
+            </td>
+            <td class="py-3.5 px-4 text-zinc-400">32 - 128 GB Unified</td>
+            <td class="py-3.5 px-4 text-cyan-400">68 tokens/sec</td>
+            <td class="py-3.5 px-4 font-bold text-emerald-400">~2.6 $DEAI / day</td>
+            <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px]">SUPPORTED</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Tokenomics Section -->
+  <section id="tokenomics" class="max-w-5xl mx-auto px-4 py-16 border-t border-white/5">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold mb-3 border border-emerald-500/20">
+        <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
+        <span>ULTRA-SCARCE 1,000,000 TOTAL SUPPLY</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-white">Institutional Tokenomics</h2>
+      <p class="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto mt-2">
+        Hard-capped like Bitcoin and Yearn Finance. 50% locked in founder on-chain vault with gradual releases.
+      </p>
+    </div>
+
+    <!-- 4 Tokenomics Pillars Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="p-5 rounded-2xl bg-[#0D111A] border border-white/10 text-center">
+        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white mx-auto mb-3">
+          <i data-lucide="coins" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xl font-black text-white font-mono">1,000,000</div>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">Strict Max Supply</div>
+        <p class="text-[10px] text-zinc-500 mt-2">Non-mintable. Hard supply cap.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#0D111A] border border-amber-500/20 text-center">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mx-auto mb-3">
+          <i data-lucide="lock" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xl font-black text-amber-400 font-mono">500,000 (50%)</div>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">Founder Vault Timelock</div>
+        <p class="text-[10px] text-zinc-500 mt-2">On-chain lock. 4-year linear release.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#0D111A] border border-cyan-500/20 text-center">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mx-auto mb-3">
+          <i data-lucide="activity" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xl font-black text-cyan-400 font-mono">250,000 (25%)</div>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">GPU Mining Pool</div>
+        <p class="text-[10px] text-zinc-500 mt-2">Emitted over 36 months to nodes.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#0D111A] border border-emerald-500/20 text-center">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mx-auto mb-3">
+          <i data-lucide="zap" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xl font-black text-emerald-400 font-mono">150,000 (15%)</div>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">Day-1 Circulating LP</div>
+        <p class="text-[10px] text-zinc-500 mt-2">100% burned/locked liquidity.</p>
+      </div>
+    </div>
+
+    <!-- Scarcity Banner -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-zinc-950 to-cyan-950/40 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
+          <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+          Official Whitepaper Specification v2.0 Released
+        </h4>
+        <p class="text-xs text-zinc-400 mt-1">
+          Explore the mathematical Proof-of-Inference (PoI) consensus and 4-year emission halving curve.
+        </p>
+      </div>
+      <a href="whitepaper.html" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 shrink-0 flex items-center gap-2 transition-all">
+        <span>Read Full Whitepaper</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-12 px-4 text-center text-xs text-zinc-500 max-w-5xl mx-auto space-y-4">
+    <div class="flex items-center justify-center gap-6 text-sm font-semibold text-zinc-400">
+      <a href="https://pump.fun" target="_blank" class="hover:text-emerald-400 transition-colors">Pump.fun</a>
+      <a href="https://dexscreener.com" target="_blank" class="hover:text-cyan-400 transition-colors">DexScreener</a>
+      <a href="https://t.me/DecentralizedAI_Portal" target="_blank" class="hover:text-white transition-colors">Telegram Portal</a>
+      <a href="https://x.com/DecentralizedAI" target="_blank" class="hover:text-white transition-colors">Twitter (X)</a>
+      <a href="whitepaper.html" class="text-emerald-400 hover:underline">Whitepaper</a>
+    </div>
+
+    <p class="text-[11px] text-zinc-500 max-w-xl mx-auto leading-relaxed font-mono">
+      DecentralizedAI ($DEAI) is an open-source decentralized physical infrastructure protocol. Not financial advice. Past performance of cryptographic tokens does not guarantee future valuation.
+    </p>
+
+    <div class="text-[10px] text-zinc-600 font-mono">
+      DecentralizedAI Protocol &bull; Peer-to-Peer Neural Mesh &bull; Built on Solana
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Node Simulator State
+    let isRunning = false;
+    let minedTotal = 0.0;
+    let intervalId = null;
+
+    function copyCA() {
+      const text = document.getElementById('ca-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        btnText.innerText = "Copied!";
+        setTimeout(() => btnText.innerText = "Copy", 2000);
+      });
+    }
+
+    function toggleSimulatedNode() {
+      const btn = document.getElementById('toggle-node-btn');
+      const btnText = document.getElementById('node-btn-text');
+      const hashSpeed = document.getElementById('hash-speed');
+      const term = document.getElementById('terminal-body');
+
+      if (!isRunning) {
+        isRunning = true;
+        btnText.innerText = "Stop Node";
+        btn.classList.remove('bg-emerald-500', 'hover:bg-emerald-400');
+        btn.classList.add('bg-rose-500', 'hover:bg-rose-400');
+        hashSpeed.innerText = "42.8 MH/s";
+
+        const models = ['DeepSeek-R1-8B', 'Qwen-2.5-Coder', 'Llama-3.1-8B'];
+
+        intervalId = setInterval(() => {
+          const m = models[Math.floor(Math.random() * models.length)];
+          const reward = (Math.random() * 4.5 + 1.2);
+          minedTotal += reward;
+          document.getElementById('mined-balance').innerText = minedTotal.toFixed(2) + " $DEAI";
+
+          const line = document.createElement('div');
+          const time = new Date().toLocaleTimeString();
+          const hash = "0x" + Math.random().toString(16).substring(2, 10) + "...";
+          line.className = "flex items-center justify-between py-0.5 text-zinc-300";
+          line.innerHTML = `<span>[${time}] Computed shard <strong>${m}</strong> (${hash})</span> <span class="text-emerald-400 font-bold">+${reward.toFixed(2)} $DEAI</span>`;
+          term.appendChild(line);
+          term.scrollTop = term.scrollHeight;
+        }, 1500);
+
+      } else {
+        isRunning = false;
+        clearInterval(intervalId);
+        btnText.innerText = "Start Mining Node";
+        btn.classList.remove('bg-rose-500', 'hover:bg-rose-400');
+        btn.classList.add('bg-emerald-500', 'hover:bg-emerald-400');
+        hashSpeed.innerText = "0.0 MH/s";
+
+        const line = document.createElement('div');
+        line.className = "text-amber-400 py-1";
+        line.innerText = "[!] Node paused. Total rewards credited to local signer vault.";
+        term.appendChild(line);
+        term.scrollTop = term.scrollHeight;
+      }
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

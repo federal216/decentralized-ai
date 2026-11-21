@@ -1,0 +1,26 @@
+{
+  "name": "DecentralizedAI",
+  "symbol": "DEAI",
+  "description": "The sovereign DePIN neural compute mesh. Scaling open-source LLM inference across distributed consumer GPUs (RTX 3060/4090). Proof-of-Inference (PoI) consensus. Ultra-scarce 1,000,000 max supply with 500,000 timelocked founder reserve.",
+  "image": "decentralized_ai_logo.png",
+  "external_url": "https://federal216.github.io/decentralized-ai/",
+  "attributes": [
+    { "trait_type": "Sector", "value": "DePIN & Distributed AI" },
+    { "trait_type": "Consensus", "value": "Proof-of-Inference (PoI)" },
+    { "trait_type": "Max_Supply", "value": "1,000,000 $DEAI (Ultra-Scarce)" },
+    { "trait_type": "Founder_Locked_Reserve", "value": "500,000 $DEAI (50% Timelock)" },
+    { "trait_type": "Day_1_Circulating", "value": "150,000 $DEAI (15%)" },
+    { "trait_type": "Mining_Yield_Pool", "value": "250,000 $DEAI (25% Released Gradually)" },
+    { "trait_type": "Ecosystem_Grants", "value": "100,000 $DEAI (10% Vested)" },
+    { "trait_type": "Buy_Tax", "value": "0%" },
+    { "trait_type": "Sell_Tax", "value": "0%" },
+    { "trait_type": "Burn_Mechanism", "value": "20% API Query Buyback & Burn" }
+  ],
+  "socials": {
+    "website": "https://federal216.github.io/decentralized-ai/",
+    "twitter": "https://x.com/DecentralizedAI",
+    "telegram": "https://t.me/DecentralizedAI_Portal",
+    "github": "https://github.com/federal216/decentralized-ai",
+    "whitepaper": "https://federal216.github.io/decentralized-ai/whitepaper.html"
+  }
+}
