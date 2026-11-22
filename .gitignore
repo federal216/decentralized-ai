@@ -5,3 +5,5 @@ devnet_wallet.json
 mined_ledger.json
 devnet_config.json
 .env
+__pycache__/
+*.pyc
