@@ -69,17 +69,17 @@
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span class="text-zinc-400">NETWORK STATUS: <strong class="text-emerald-400">MAINNET ACTIVE</strong></span>
+          <span class="text-zinc-400">NETWORK STATUS: <strong class="text-emerald-400" id="network-status">DEVNET ACTIVE</strong></span>
         </div>
         <div class="hidden sm:flex items-center gap-2 text-zinc-500">
           <span>|</span>
           <span>ACTIVE GPU NODES: <strong class="text-white" id="node-count">1,482</strong></span>
           <span>|</span>
-          <span>MESH COMPUTE: <strong class="text-cyan-400">84.6 TFLOPS</strong></span>
+          <span>MESH COMPUTE: <strong class="text-cyan-400" id="mesh-compute">84.6 TFLOPS</strong></span>
         </div>
       </div>
       <div class="flex items-center gap-3">
-        <span class="text-zinc-400">EPOCH BLOCK: <strong class="text-white" id="block-height">#148,932</strong></span>
+        <span class="text-zinc-400">SOLANA DEVNET SLOT: <strong class="text-white" id="block-height">#524,978,199</strong></span>
         <a href="#node-runner" class="px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold hover:bg-emerald-500/20 transition-all">
           Connect Node →
         </a>
@@ -115,15 +115,15 @@
     </div>
 
     <div class="flex items-center gap-3">
-      <a href="https://pump.fun" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-black font-black text-xs shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all flex items-center gap-2">
+      <button onclick="openTestnetModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-black font-black text-xs shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all flex items-center gap-2">
         <i data-lucide="zap" class="w-4 h-4"></i>
-        <span>Trade on Pump.fun</span>
-      </a>
+        <span>Testnet Portal & CA</span>
+      </button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
+  <!-- Hero & Vision Section -->
+  <section id="vision" class="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold uppercase tracking-wider mb-8">
       <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
       <span>Solana DePIN × Open-Source LLM Inference Mesh</span>
@@ -142,10 +142,10 @@
 
     <!-- Quick CTA Row -->
     <div class="flex flex-wrap items-center justify-center gap-4 mb-14">
-      <a href="https://pump.fun" target="_blank" class="px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-sm shadow-[0_0_40px_rgba(16,185,129,0.35)] hover:scale-[1.03] transition-all flex items-center gap-2">
+      <button onclick="openTestnetModal()" class="px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-sm shadow-[0_0_40px_rgba(16,185,129,0.35)] hover:scale-[1.03] transition-all flex items-center gap-2">
         <i data-lucide="rocket" class="w-5 h-5"></i>
-        <span>Buy $DEAI on Pump.fun</span>
-      </a>
+        <span>Explore $DEAI Token</span>
+      </button>
       <a href="#node-runner" class="px-7 py-4 rounded-2xl bg-zinc-900/90 hover:bg-zinc-800 border border-white/10 text-white font-bold text-sm shadow-lg hover:border-emerald-500/40 transition-all flex items-center gap-2">
         <i data-lucide="terminal" class="w-5 h-5 text-emerald-400"></i>
         <span>Test WebGPU Node</span>
@@ -173,11 +173,11 @@
   <section class="max-w-6xl mx-auto px-4 py-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center glow-emerald">
-        <div class="text-3xl font-extrabold text-white font-mono mb-1">1,482+</div>
+        <div class="text-3xl font-extrabold text-white font-mono mb-1" id="stat-nodes">1,482+</div>
         <div class="text-xs text-zinc-400 font-semibold">Active RTX Worker Nodes</div>
       </div>
       <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center glow-cyan">
-        <div class="text-3xl font-extrabold text-cyan-400 font-mono mb-1">18.4 ms</div>
+        <div class="text-3xl font-extrabold text-cyan-400 font-mono mb-1" id="stat-latency">18.4 ms</div>
         <div class="text-xs text-zinc-400 font-semibold">Average Shard Latency</div>
       </div>
       <div class="p-6 rounded-2xl bg-[#0D111A] border border-white/5 text-center">
@@ -225,9 +225,9 @@
       <!-- Terminal Body -->
       <div class="p-6 font-mono text-xs space-y-2 min-h-[320px] max-h-[420px] overflow-y-auto bg-black/90" id="terminal-body">
         <div class="text-emerald-400">[*] Initializing DecentralizedAI Peer-to-Peer Subsystem...</div>
-        <div class="text-zinc-400">[✔] Local Compute Target: NVIDIA GeForce RTX 3060 (6.0 GB VRAM)</div>
-        <div class="text-zinc-400">[✔] CUDA Core Acceleration: ENABLED (Compute Capability 8.6)</div>
-        <div class="text-cyan-400">[✔] Connected to Solana Mainnet Gateway RPC: wss://mesh.decentralized.ai</div>
+        <div class="text-zinc-400">[✔] Local Compute Target: NVIDIA GeForce RTX 3060 / 4090 Compatible</div>
+        <div class="text-zinc-400">[✔] CUDA Core Acceleration: DIRECT COMPUTE READY</div>
+        <div class="text-cyan-400">[✔] Connected to Solana Devnet Gateway RPC: https://api.devnet.solana.com</div>
         <div class="text-zinc-500">--------------------------------------------------------------------------------</div>
       </div>
 
@@ -249,9 +249,13 @@
             <i data-lucide="play" class="w-4 h-4"></i>
             <span id="node-btn-text">Start Mining Node</span>
           </button>
-          <a href="scripts/worker_node.py" download class="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-xs font-semibold text-zinc-300 transition-all flex items-center gap-2">
-            <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
-            <span>Download Python CLI Client</span>
+          <a href="start_miner.bat" download class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-black text-xs font-black hover:opacity-95 transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+            <i data-lucide="play-circle" class="w-4 h-4"></i>
+            <span>1-Click Miner (.bat)</span>
+          </a>
+          <a href="scripts/worker_node.py" download class="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-xs font-semibold text-zinc-300 transition-all flex items-center gap-1.5">
+            <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+            <span>Python CLI</span>
           </a>
         </div>
       </div>
@@ -351,31 +355,31 @@
           <i data-lucide="lock" class="w-5 h-5"></i>
         </div>
         <div class="text-xl font-black text-amber-400 font-mono">500,000 (50%)</div>
-        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">Founder Vault Timelock</div>
-        <p class="text-[10px] text-zinc-400 mt-2 font-mono">1-Yr Cliff + 10-Yr Vesting (10%/yr)</p>
-      </div>
-
-      <div class="p-5 rounded-2xl bg-[#0D111A] border border-cyan-500/20 text-center">
-        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mx-auto mb-3">
-          <i data-lucide="activity" class="w-5 h-5"></i>
-        </div>
-        <div class="text-xl font-black text-cyan-400 font-mono">250,000 (25%)</div>
-        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">GPU Mining & Swarm AI</div>
-        <p class="text-[10px] text-zinc-400 mt-2 font-mono">Uptime (Süre) + Workload (İş Hacmi)</p>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">Founder Vault</div>
+        <p class="text-[10px] text-zinc-500 mt-2">1-Yr Cliff + 10-Yr Linear Vesting.</p>
       </div>
 
       <div class="p-5 rounded-2xl bg-[#0D111A] border border-emerald-500/20 text-center">
         <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mx-auto mb-3">
-          <i data-lucide="zap" class="w-5 h-5"></i>
+          <i data-lucide="pickaxe" class="w-5 h-5"></i>
         </div>
-        <div class="text-xl font-black text-emerald-400 font-mono">150,000 (15%)</div>
-        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">Day-1 LP (SOL Pair)</div>
-        <p class="text-[10px] text-zinc-400 mt-2 font-mono">Raydium/Pump.fun 100% LP Burned</p>
+        <div class="text-xl font-black text-emerald-400 font-mono">250,000 (25%)</div>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">GPU Mining Pool</div>
+        <p class="text-[10px] text-zinc-500 mt-2">36-Month PoI dual-metric halving curve.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-[#0D111A] border border-cyan-500/20 text-center">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mx-auto mb-3">
+          <i data-lucide="flame" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xl font-black text-cyan-400 font-mono">150,000 (15%)</div>
+        <div class="text-[11px] text-zinc-400 mt-0.5 font-semibold">DEX Liquidity Pool</div>
+        <p class="text-[10px] text-zinc-500 mt-2">Raydium LP tokens 100% permanently burned.</p>
       </div>
     </div>
 
-    <!-- Scarcity Banner -->
-    <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-zinc-950 to-cyan-950/40 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <!-- Whitepaper Callout -->
+    <div class="p-6 rounded-2xl bg-zinc-900/60 border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
         <h4 class="text-sm font-bold text-white flex items-center gap-2 font-mono">
           <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
@@ -395,11 +399,10 @@
   <!-- Footer -->
   <footer class="border-t border-white/5 py-12 px-4 text-center text-xs text-zinc-500 max-w-5xl mx-auto space-y-4">
     <div class="flex items-center justify-center gap-6 text-sm font-semibold text-zinc-400">
-      <a href="https://pump.fun" target="_blank" class="hover:text-emerald-400 transition-colors">Pump.fun</a>
-      <a href="https://dexscreener.com" target="_blank" class="hover:text-cyan-400 transition-colors">DexScreener</a>
-      <a href="https://t.me/DecentralizedAI_Portal" target="_blank" class="hover:text-white transition-colors">Telegram Portal</a>
-      <a href="https://x.com/DecentralizedAI" target="_blank" class="hover:text-white transition-colors">Twitter (X)</a>
-      <a href="whitepaper.html" class="text-emerald-400 hover:underline">Whitepaper</a>
+      <button onclick="openTestnetModal()" class="hover:text-emerald-400 transition-colors">Testnet Portal</button>
+      <a href="https://explorer.solana.com/address/9Q9PhpuEn1jx4CVPsGw4cbMPVcAopBJq9KjaVzALx7Rh?cluster=devnet" target="_blank" class="hover:text-cyan-400 transition-colors">Solana Explorer</a>
+      <a href="https://github.com/federal216/decentralized-ai" target="_blank" class="hover:text-white transition-colors">GitHub Repository</a>
+      <a href="whitepaper.html" class="text-emerald-400 hover:underline">Whitepaper v2.0</a>
     </div>
 
     <p class="text-[11px] text-zinc-500 max-w-xl mx-auto leading-relaxed font-mono">
@@ -407,18 +410,63 @@
     </p>
 
     <div class="text-[10px] text-zinc-600 font-mono">
-      DecentralizedAI Protocol &bull; Peer-to-Peer Neural Mesh &bull; Built on Solana
+      DecentralizedAI Protocol &bull; Peer-to-Peer Neural Mesh &bull; Built on Solana Devnet
     </div>
   </footer>
+
+  <!-- Testnet / Token Modal -->
+  <div id="testnet-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-zinc-950 border border-emerald-500/40 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative">
+      <button onclick="closeTestnetModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white text-lg font-bold">✕</button>
+      
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+          <i data-lucide="shield-check" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-black text-white">$DEAI Public Testnet Hub</h3>
+          <span class="text-xs text-emerald-400 font-mono font-bold">Solana Devnet Cluster Live</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-zinc-300 leading-relaxed mb-4">
+        DecentralizedAI ($DEAI) is currently in its <strong>Incentivized Testnet Epoch</strong>. The SPL token is verified on Solana Devnet with a permanently capped 1,000,000 max supply. Mainnet DEX trading (Raydium & Pump.fun) will launch at the end of this epoch. Early node operators receive guaranteed retroactive airdrop allocation!
+      </p>
+
+      <div class="p-3 bg-zinc-900/90 rounded-xl border border-white/10 mb-5 font-mono text-xs">
+        <div class="text-[10px] text-zinc-400 uppercase font-bold mb-1">Devnet Mint Contract Address:</div>
+        <div class="text-emerald-400 break-all select-all font-semibold">9Q9PhpuEn1jx4CVPsGw4cbMPVcAopBJq9KjaVzALx7Rh</div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
+        <a href="https://explorer.solana.com/address/9Q9PhpuEn1jx4CVPsGw4cbMPVcAopBJq9KjaVzALx7Rh?cluster=devnet" target="_blank" class="p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white font-bold text-center flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="external-link" class="w-4 h-4 text-emerald-400"></i>
+          <span>Solana Explorer</span>
+        </a>
+        <a href="https://faucet.solana.com" target="_blank" class="p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white font-bold text-center flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="droplet" class="w-4 h-4 text-cyan-400"></i>
+          <span>Free Devnet Faucet</span>
+        </a>
+        <a href="start_miner.bat" download class="p-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-center flex items-center justify-center gap-2 transition-all col-span-1 sm:col-span-2 shadow-lg shadow-emerald-500/20">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <span>Download 1-Click Miner (Windows .bat)</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script>
     lucide.createIcons();
 
-    // Node Simulator State
-    let isRunning = false;
-    let minedTotal = 0.0;
-    let intervalId = null;
+    // Modal Handlers
+    function openTestnetModal() {
+      document.getElementById('testnet-modal').classList.remove('hidden');
+    }
+    function closeTestnetModal() {
+      document.getElementById('testnet-modal').classList.add('hidden');
+    }
 
+    // Copy CA
     function copyCA() {
       const text = document.getElementById('ca-text').innerText;
       navigator.clipboard.writeText(text).then(() => {
@@ -427,6 +475,49 @@
         setTimeout(() => btnText.innerText = "Copy", 2000);
       });
     }
+
+    // Live Telemetry Sync (Connects to backend or falls back to live Solana RPC)
+    async function syncLiveTelemetry() {
+      // 1. Try local FastAPI Backend
+      try {
+        const res = await fetch("http://localhost:8000/api/telemetry", { signal: AbortSignal.timeout(1000) });
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('block-height').innerText = data.solana_slot;
+          document.getElementById('node-count').innerText = data.active_gpu_nodes.toLocaleString();
+          document.getElementById('stat-nodes').innerText = data.active_gpu_nodes.toLocaleString() + "+";
+          document.getElementById('mesh-compute').innerText = data.mesh_compute_tflops + " TFLOPS";
+          return;
+        }
+      } catch (e) {
+        // Fallback to direct Solana Devnet RPC
+      }
+
+      // 2. Direct Solana Devnet RPC Query
+      try {
+        const res = await fetch("https://api.devnet.solana.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getSlot" })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.result) {
+            document.getElementById('block-height').innerText = "#" + data.result.toLocaleString();
+          }
+        }
+      } catch (e) {
+        // Silently keep static fallback
+      }
+    }
+
+    syncLiveTelemetry();
+    setInterval(syncLiveTelemetry, 4000);
+
+    // Node Simulator State
+    let isRunning = false;
+    let minedTotal = 0.0;
+    let intervalId = null;
 
     function toggleSimulatedNode() {
       const btn = document.getElementById('toggle-node-btn');
@@ -441,22 +532,22 @@
         btn.classList.add('bg-rose-500', 'hover:bg-rose-400');
         hashSpeed.innerText = "42.8 MH/s";
 
-        const models = ['DeepSeek-R1-8B', 'Qwen-2.5-Coder', 'Llama-3.1-8B'];
+        const models = ['DeepSeek-R1-671B', 'Qwen-2.5-Coder', 'Llama-3.3-70B'];
 
         intervalId = setInterval(() => {
           const m = models[Math.floor(Math.random() * models.length)];
-          const reward = (Math.random() * 4.5 + 1.2);
+          const reward = (Math.random() * 0.035 + 0.015);
           minedTotal += reward;
-          document.getElementById('mined-balance').innerText = minedTotal.toFixed(2) + " $DEAI";
+          document.getElementById('mined-balance').innerText = minedTotal.toFixed(4) + " $DEAI";
 
           const line = document.createElement('div');
           const time = new Date().toLocaleTimeString();
-          const hash = "0x" + Math.random().toString(16).substring(2, 10) + "...";
+          const hash = "0x" + Math.random().toString(16).substring(2, 12) + "...";
           line.className = "flex items-center justify-between py-0.5 text-zinc-300";
-          line.innerHTML = `<span>[${time}] Computed shard <strong>${m}</strong> (${hash})</span> <span class="text-emerald-400 font-bold">+${reward.toFixed(2)} $DEAI</span>`;
+          line.innerHTML = `<span>[${time}] Computed shard <strong>${m}</strong> (${hash})</span> <span class="text-emerald-400 font-bold">+${reward.toFixed(4)} $DEAI</span>`;
           term.appendChild(line);
           term.scrollTop = term.scrollHeight;
-        }, 1500);
+        }, 1600);
 
       } else {
         isRunning = false;

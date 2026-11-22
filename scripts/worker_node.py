@@ -76,6 +76,25 @@ def detect_hardware():
     print(f"  \033[92m✔ Dedicated VRAM:\033[0m {vram_gb} GB")
     return has_cuda, device_name
 
+def send_backend_heartbeat(node_id, wallet, tflops, job_id, poi_hash, reward):
+    try:
+        payload = json.dumps({
+            "node_id": node_id,
+            "wallet": wallet,
+            "tflops": tflops,
+            "job_id": job_id,
+            "poi_hash": poi_hash,
+            "reward": reward
+        }).encode()
+        req = urllib.request.Request(
+            "http://localhost:8000/api/nodes/heartbeat",
+            data=payload,
+            headers={"Content-Type": "application/json"}
+        )
+        urllib.request.urlopen(req, timeout=0.4)
+    except Exception:
+        pass # Backend is optional; runs standalone gracefully
+
 def load_or_init_ledger(wallet_address):
     if os.path.exists(LEDGER_FILE):
         try:
@@ -150,6 +169,7 @@ def run_node_loop(has_cuda, device_name, wallet_address, network="devnet"):
                 "hash": poi_hash
             })
             save_ledger(wallet_address, total_rewards, history)
+            send_backend_heartbeat(node_id, wallet_address, tflops, job_id, poi_hash, epoch_reward)
             
             # Formatted log
             print(f"{now:<8} | {uptime_str:<8} | {job_id:<8} | \033[96m{layer_range:<16}\033[0m | {tflops:<8} | 0x{poi_hash:<12} | \033[92m+{epoch_reward:>6.4f} $DEAI\033[0m (Total: {total_rewards:.4f})", flush=True)
