@@ -1,0 +1,7 @@
+node_modules/
+*.keypair.json
+*keypair.json
+devnet_wallet.json
+mined_ledger.json
+devnet_config.json
+.env
